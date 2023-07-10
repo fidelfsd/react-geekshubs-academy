@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -16,6 +16,8 @@ import Alert from "@mui/material/Alert";
 
 import authService from "../../_services/authService";
 import { updateAuthStateLogin } from "../../features/authentication/updateAuthState";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
    return (
@@ -43,6 +45,22 @@ export default function Login() {
    // hooks
    const [showPassword, setShowPassword] = useState(false);
    const [error, setError] = useState(null);
+   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+   const navigate = useNavigate();
+   const userRole = useSelector((state) => state.auth.userInfo.role);
+   const isAdmin = userRole == "admin";
+
+   useEffect(() => {
+      console.log(isAdmin);
+
+      if (isLoggedIn) {
+         if (isAdmin) {
+            navigate("/admin");
+         } else {
+            navigate("/");
+         }
+      }
+   }, [isLoggedIn]);
 
    const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -73,6 +91,7 @@ export default function Login() {
          console.log(response);
          setError(null);
          updateAuthStateLogin(response.token);
+         console.log({ isLoggedIn });
       } catch (error) {
          setError(error.response.data.message);
          console.log(error.response.data.message);

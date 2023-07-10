@@ -7,6 +7,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Profile from "./pages/profile/Profile";
 import Courses from "./pages/courses/Courses";
+import Admin from "./pages/admin/Admin";
 
 export default function AppRouter() {
    return (
@@ -17,6 +18,7 @@ export default function AppRouter() {
             <Route path="/register" element={<Register />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/admin" element={<Admin />} />
             <Route path="/about" element={<About />} />
             <Route path="*" element={<NotFound />} />
          </Routes>

@@ -1,4 +1,8 @@
 import * as React from "react";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+// @MUI
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,17 +11,18 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import MovieOutlinedIcon from "@mui/icons-material/MovieOutlined";
-
-import { NavLink } from "react-router-dom";
-import "./ResponsiveAppBar.scss";
 import SchoolTwoToneIcon from "@mui/icons-material/SchoolTwoTone";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Divider } from "@mui/material";
+
+//
+import "./ResponsiveAppBar.scss";
 import { updateAuthStateLogout } from "../../../features/authentication/updateAuthState";
+
+// ----------------------------------------------------------------------
 
 const handleLogout = () => {
    console.log("logout");
@@ -35,9 +40,15 @@ const settings = [
    { title: "Logout", path: "/", handle: handleLogout },
 ];
 
+// ----------------------------------------------------------------------
+
 function ResponsiveAppBar() {
    const [anchorElNav, setAnchorElNav] = React.useState(null);
    const [anchorElUser, setAnchorElUser] = React.useState(null);
+   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+   const userName = useSelector((state) => state.auth.userInfo.name);
+   const userRole = useSelector((state) => state.auth.userInfo.role);
+   const isAdmin = userRole == "admin";
 
    const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
@@ -141,9 +152,7 @@ function ResponsiveAppBar() {
                      color: "inherit",
                      textDecoration: "none",
                   }}
-               >
-                  GH
-               </Typography>
+               ></Typography>
                <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                   {pages.map((page) => (
                      <NavLink
@@ -161,69 +170,97 @@ function ResponsiveAppBar() {
                   ))}
                </Box>
 
-               <Box sx={{ flexGrow: 0, display: { xs: "flex" }, mr: 2 }}>
-                  <NavLink style={{ textDecoration: "none" }} to="/login">
-                     <Button sx={{ my: 2, color: "white", display: "block" }}>
-                        Login
-                     </Button>
-                  </NavLink>
+               {!isLoggedIn && (
+                  <Box sx={{ flexGrow: 0, display: { xs: "flex" }, mr: 2 }}>
+                     <NavLink style={{ textDecoration: "none" }} to="/login">
+                        <Button
+                           sx={{ my: 2, color: "white", display: "block" }}
+                        >
+                           Login
+                        </Button>
+                     </NavLink>
 
-                  <NavLink style={{ textDecoration: "none" }} to="/register">
-                     <Button sx={{ my: 2, color: "white", display: "block" }}>
-                        Register
-                     </Button>
-                  </NavLink>
-               </Box>
+                     <NavLink style={{ textDecoration: "none" }} to="/register">
+                        <Button
+                           sx={{ my: 2, color: "white", display: "block" }}
+                        >
+                           Register
+                        </Button>
+                     </NavLink>
+                  </Box>
+               )}
+
+               {isAdmin && (
+                  <Box sx={{ flexGrow: 0, display: { xs: "flex" }, mr: 2 }}>
+                     <NavLink style={{ textDecoration: "none" }} to="/admin">
+                        <Button
+                           variant="contained"
+                           color="success"
+                           sx={{ my: 2, color: "white", display: "block" }}
+                        >
+                           Admin
+                        </Button>
+                     </NavLink>
+                  </Box>
+               )}
 
                {/* user settings */}
-               <Box sx={{ flexGrow: 0 }}>
-                  <Tooltip title="Open settings">
-                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        {/* <Avatar
+               {isLoggedIn && (
+                  <Box sx={{ flexGrow: 0 }}>
+                     <Tooltip title="Open settings">
+                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                           {/* <Avatar
                            alt="Remy Sharp"
                            src="/static/images/avatar/2.jpg"
                         /> */}
-                        <AccountCircleIcon
-                           sx={{
-                              display: { xs: "flex" },
-                              mr: 1,
-                              color: "white",
-                           }}
-                        />
-                     </IconButton>
-                  </Tooltip>
-                  <Menu
-                     sx={{ mt: "45px" }}
-                     id="menu-appbar"
-                     anchorEl={anchorElUser}
-                     anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                     }}
-                     keepMounted
-                     transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                     }}
-                     open={Boolean(anchorElUser)}
-                     onClose={handleCloseUserMenu}
-                  >
-                     {settings.map((setting) => (
-                        <NavLink
-                           style={{ textDecoration: "none" }}
-                           to={setting.path}
-                           key={setting.title}
-                           onClick={setting.handle}
-                        >
-                           <MenuItem onClick={handleCloseUserMenu}>
-                              <Typography textAlign="center">
-                                 {setting.title}
-                              </Typography>
-                           </MenuItem>
-                        </NavLink>
-                     ))}
-                  </Menu>
-               </Box>
+                           <AccountCircleIcon
+                              sx={{
+                                 display: { xs: "flex" },
+                                 mr: 1,
+                                 color: "white",
+                              }}
+                           />
+                        </IconButton>
+                     </Tooltip>
+                     <Menu
+                        sx={{ mt: "45px" }}
+                        id="menu-appbar"
+                        anchorEl={anchorElUser}
+                        anchorOrigin={{
+                           vertical: "top",
+                           horizontal: "right",
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                           vertical: "top",
+                           horizontal: "right",
+                        }}
+                        open={Boolean(anchorElUser)}
+                        onClose={handleCloseUserMenu}
+                     >
+                        <MenuItem sx={{ cursor: "default" }}>
+                           <Typography textAlign="center" fontWeight={500}>
+                              Hi, {userName}
+                           </Typography>
+                        </MenuItem>
+                        <Divider />
+                        {settings.map((setting) => (
+                           <NavLink
+                              style={{ textDecoration: "none" }}
+                              to={setting.path}
+                              key={setting.title}
+                              onClick={setting.handle}
+                           >
+                              <MenuItem onClick={handleCloseUserMenu}>
+                                 <Typography textAlign="center">
+                                    {setting.title}
+                                 </Typography>
+                              </MenuItem>
+                           </NavLink>
+                        ))}
+                     </Menu>
+                  </Box>
+               )}
             </Toolbar>
          </Container>
       </AppBar>
