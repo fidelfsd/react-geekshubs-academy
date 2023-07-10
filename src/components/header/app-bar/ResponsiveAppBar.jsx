@@ -17,6 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import SchoolTwoToneIcon from "@mui/icons-material/SchoolTwoTone";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Divider } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 //
 import "./ResponsiveAppBar.scss";
@@ -195,7 +196,8 @@ function ResponsiveAppBar() {
                      <NavLink style={{ textDecoration: "none" }} to="/admin">
                         <Button
                            variant="contained"
-                           color="success"
+                           color="secondary"
+                           startIcon={<DeleteIcon />}
                            sx={{ my: 2, color: "white", display: "block" }}
                         >
                            Admin
@@ -238,7 +240,9 @@ function ResponsiveAppBar() {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                      >
-                        <MenuItem sx={{ cursor: "default" }}>
+                        <MenuItem
+                           sx={{ cursor: "default", pointerEvents: "none" }}
+                        >
                            <Typography textAlign="center" fontWeight={500}>
                               Hi, {userName}
                            </Typography>

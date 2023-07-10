@@ -51,8 +51,6 @@ export default function Login() {
    const isAdmin = userRole == "admin";
 
    useEffect(() => {
-      console.log(isAdmin);
-
       if (isLoggedIn) {
          if (isAdmin) {
             navigate("/admin");
@@ -76,10 +74,6 @@ export default function Login() {
          email: data.get("email"),
          password: data.get("password"),
       };
-      console.log({
-         email: data.get("email"),
-         password: data.get("password"),
-      });
 
       // validar en el frontend
       login(credentials);
@@ -88,10 +82,8 @@ export default function Login() {
    const login = async (credentials) => {
       try {
          const response = await authService.login(credentials);
-         console.log(response);
          setError(null);
          updateAuthStateLogin(response.token);
-         console.log({ isLoggedIn });
       } catch (error) {
          setError(error.response.data.message);
          console.log(error.response.data.message);
