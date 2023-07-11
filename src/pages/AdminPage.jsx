@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 // @MUI
 import { Container, Typography } from "@mui/material";
 import userService from "../_services/userService";
-import { useSelector } from "react-redux";
 
 // ----------------------------------------------------------------------
 
