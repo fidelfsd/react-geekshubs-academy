@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
 
-export default function NotFound() {
+export default function AboutPage() {
    return (
       <>
          <Container sx={{ mt: 5 }}>
@@ -13,7 +13,7 @@ export default function NotFound() {
                fontWeight={400}
                gutterBottom
             >
-               404 Page Not Found
+               About
             </Typography>
          </Container>
       </>

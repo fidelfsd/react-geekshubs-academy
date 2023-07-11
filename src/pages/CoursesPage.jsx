@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
 
-export default function About() {
+export default function CoursesPage() {
    return (
       <>
          <Container sx={{ mt: 5 }}>
@@ -13,7 +13,7 @@ export default function About() {
                fontWeight={400}
                gutterBottom
             >
-               About
+               Courses
             </Typography>
          </Container>
       </>

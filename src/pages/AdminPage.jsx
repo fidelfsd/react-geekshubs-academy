@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 
 // @MUI
 import { Container, Typography } from "@mui/material";
-import userService from "../../_services/userService";
+import userService from "../_services/userService";
 import { useSelector } from "react-redux";
 
 // ----------------------------------------------------------------------
 
-export default function Admin() {
+export default function AdminPage() {
    // hooks
    const [users, setUsers] = useState([]);
    const [usersPage, setUsersPage] = useState(1);

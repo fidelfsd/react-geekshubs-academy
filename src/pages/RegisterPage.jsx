@@ -35,7 +35,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function Register() {
+export default function RegisterPage() {
    const [showPassword, setShowPassword] = React.useState(false);
 
    const handleClickShowPassword = () => setShowPassword((show) => !show);

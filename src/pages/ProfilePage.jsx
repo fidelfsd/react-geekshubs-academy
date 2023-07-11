@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
 
-export default function Profile() {
+export default function ProfilePage() {
    return (
       <>
          <Container sx={{ mt: 5 }}>

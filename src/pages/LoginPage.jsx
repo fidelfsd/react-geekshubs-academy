@@ -14,8 +14,8 @@ import { AlertTitle, IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Alert from "@mui/material/Alert";
 
-import authService from "../../_services/authService";
-import { updateAuthStateLogin } from "../../features/authentication/updateAuthState";
+import authService from "../_services/authService";
+import { updateAuthStateLogin } from "../features/authentication/updateAuthState";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -41,7 +41,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function Login() {
+export default function LoginPage() {
    // hooks
    const [showPassword, setShowPassword] = useState(false);
    const [error, setError] = useState(null);
