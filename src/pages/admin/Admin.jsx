@@ -21,7 +21,7 @@ export default function Admin() {
    const getUsers = async () => {
       setIsLoading(true);
       try {
-         const data = await userService.getAll(token, usersPage);
+         const data = await userService.getStudents(token, usersPage);
          setUsers(data.results);
          console.log(data.results);
       } catch (error) {

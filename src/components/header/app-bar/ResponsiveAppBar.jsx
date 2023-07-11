@@ -17,7 +17,9 @@ import MenuItem from "@mui/material/MenuItem";
 import SchoolTwoToneIcon from "@mui/icons-material/SchoolTwoTone";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Divider } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import BuildTwoToneIcon from "@mui/icons-material/BuildTwoTone";
+import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
+import AppRegistrationTwoToneIcon from "@mui/icons-material/AppRegistrationTwoTone";
 
 //
 import "./ResponsiveAppBar.scss";
@@ -67,7 +69,11 @@ function ResponsiveAppBar() {
    };
 
    return (
-      <AppBar position="static" className="ResponsiveAppBar">
+      <AppBar
+         position="static"
+         className="ResponsiveAppBar"
+         color={isAdmin ? "error" : "primary"}
+      >
          <Container>
             <Toolbar disableGutters>
                <SchoolTwoToneIcon
@@ -172,10 +178,18 @@ function ResponsiveAppBar() {
                </Box>
 
                {!isLoggedIn && (
-                  <Box sx={{ flexGrow: 0, display: { xs: "flex" }, mr: 2 }}>
+                  <Box sx={{ flexGrow: 0, display: { xs: "flex" } }}>
                      <NavLink style={{ textDecoration: "none" }} to="/login">
                         <Button
-                           sx={{ my: 2, color: "white", display: "block" }}
+                           variant="contained"
+                           startIcon={<LoginTwoToneIcon />}
+                           sx={{
+                              my: 2,
+                              mr: 1,
+                              color: "white",
+
+                              backgroundColor: "#3F51B5",
+                           }}
                         >
                            Login
                         </Button>
@@ -183,7 +197,13 @@ function ResponsiveAppBar() {
 
                      <NavLink style={{ textDecoration: "none" }} to="/register">
                         <Button
-                           sx={{ my: 2, color: "white", display: "block" }}
+                           variant="contained"
+                           startIcon={<AppRegistrationTwoToneIcon />}
+                           sx={{
+                              my: 2,
+                              color: "white",
+                              backgroundColor: "#3F51B5",
+                           }}
                         >
                            Register
                         </Button>
@@ -192,15 +212,19 @@ function ResponsiveAppBar() {
                )}
 
                {isAdmin && (
-                  <Box sx={{ flexGrow: 0, display: { xs: "flex" }, mr: 2 }}>
+                  <Box sx={{ flexGrow: 0, display: { xs: "flex" }, mr: 4 }}>
                      <NavLink style={{ textDecoration: "none" }} to="/admin">
                         <Button
                            variant="contained"
-                           color="secondary"
-                           startIcon={<DeleteIcon />}
-                           sx={{ my: 2, color: "white", display: "block" }}
+                           startIcon={<BuildTwoToneIcon />}
+                           color="warning"
+                           sx={{
+                              my: 2,
+                              color: "white",
+                              //backgroundColor: "#FFC107",
+                           }}
                         >
-                           Admin
+                           Admin panel
                         </Button>
                      </NavLink>
                   </Box>
