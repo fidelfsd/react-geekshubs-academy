@@ -20,6 +20,7 @@ import { Divider } from "@mui/material";
 import BuildTwoToneIcon from "@mui/icons-material/BuildTwoTone";
 import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
 import AppRegistrationTwoToneIcon from "@mui/icons-material/AppRegistrationTwoTone";
+import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
 
 //
 import "./ResponsiveAppBar.scss";
@@ -40,6 +41,7 @@ const pages = [
 
 const settings = [
    { title: "Profile", path: "/profile", handle: null },
+   { title: "Acount", path: "/account", handle: null },
    { title: "Logout", path: "/", handle: handleLogout },
 ];
 
@@ -182,13 +184,13 @@ function ResponsiveAppBar() {
                      <NavLink style={{ textDecoration: "none" }} to="/login">
                         <Button
                            variant="contained"
+                           size="small"
                            startIcon={<LoginTwoToneIcon />}
                            sx={{
                               my: 2,
                               mr: 1,
                               color: "white",
-
-                              backgroundColor: "#3F51B5",
+                              bgcolor: "primary.dark",
                            }}
                         >
                            Login
@@ -198,11 +200,12 @@ function ResponsiveAppBar() {
                      <NavLink style={{ textDecoration: "none" }} to="/register">
                         <Button
                            variant="contained"
-                           startIcon={<AppRegistrationTwoToneIcon />}
+                           size="small"
+                           //startIcon={<AppRegistrationTwoToneIcon />}
                            sx={{
                               my: 2,
                               color: "white",
-                              backgroundColor: "#3F51B5",
+                              bgcolor: "primary.dark",
                            }}
                         >
                            Register
@@ -221,7 +224,6 @@ function ResponsiveAppBar() {
                            sx={{
                               my: 2,
                               color: "white",
-                              //backgroundColor: "#FFC107",
                            }}
                         >
                            Admin panel
