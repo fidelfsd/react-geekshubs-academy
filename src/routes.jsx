@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useRoutes } from "react-router";
 import { Navigate } from "react-router-dom";
 
 // pages
@@ -8,26 +8,58 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import CoursesPage from "./pages/CoursesPage";
-import ProfilePage from "./pages/ProfilePage";
 import Page404 from "./pages/Page404";
 import AboutPage from "./pages/AboutPage";
 import AccountPage from "./pages/AccountPage";
+import StudentProfilePage from "./pages/SudentProfilePage";
+import AdminProfilePage from "./pages/AdminProfilePage";
 
 export default function Router() {
-   return (
-      <div>
-         <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/courses" element={<CoursesPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/account" element={<AccountPage />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/404" element={<Page404 />} />
-            <Route path="*" element={<Navigate to="/404" />} />
-         </Routes>
-      </div>
-   );
+   const routes = useRoutes([
+      {
+         path: "/",
+         element: <HomePage />,
+      },
+      {
+         path: "/login",
+         element: <LoginPage />,
+      },
+      {
+         path: "/register",
+         element: <RegisterPage />,
+      },
+      {
+         path: "/profile",
+         children: [
+            { path: "admin", element: <AdminProfilePage /> },
+            { path: "student", element: <StudentProfilePage /> },
+         ],
+      },
+      {
+         path: "/courses",
+         element: <CoursesPage />,
+      },
+      {
+         path: "/account",
+         element: <AccountPage />,
+      },
+      {
+         path: "/admin",
+         element: <AdminPage />,
+      },
+      {
+         path: "/about",
+         element: <AboutPage />,
+      },
+      {
+         path: "/404",
+         element: <Page404 />,
+      },
+      {
+         path: "*",
+         element: <Navigate to="/404" />,
+      },
+   ]);
+
+   return routes;
 }

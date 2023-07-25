@@ -16,34 +16,14 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import SchoolTwoToneIcon from "@mui/icons-material/SchoolTwoTone";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Divider } from "@mui/material";
+import { Chip, Divider } from "@mui/material";
 import BuildTwoToneIcon from "@mui/icons-material/BuildTwoTone";
 import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
-import AppRegistrationTwoToneIcon from "@mui/icons-material/AppRegistrationTwoTone";
-import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
+import FaceIcon from "@mui/icons-material/Face";
 
 //
 import "./ResponsiveAppBar.scss";
 import { updateAuthStateLogout } from "../../../features/authentication/updateAuthState";
-
-// ----------------------------------------------------------------------
-
-const handleLogout = () => {
-   console.log("logout");
-   updateAuthStateLogout();
-};
-
-const pages = [
-   { title: "Home", path: "/" },
-   { title: "Courses", path: "/courses" },
-   { title: "About", path: "/about" },
-];
-
-const settings = [
-   { title: "Profile", path: "/profile", handle: null },
-   { title: "Acount", path: "/account", handle: null },
-   { title: "Logout", path: "/", handle: handleLogout },
-];
 
 // ----------------------------------------------------------------------
 
@@ -54,6 +34,28 @@ function ResponsiveAppBar() {
    const userName = useSelector((state) => state.auth.userInfo.name);
    const userRole = useSelector((state) => state.auth.userInfo.role);
    const isAdmin = userRole == "admin";
+
+   const handleLogout = () => {
+      console.log("logout");
+      updateAuthStateLogout();
+   };
+
+   const profilePath = {
+      admin: "/profile/admin",
+      student: "/profile/student",
+   };
+
+   const pages = [
+      { title: "Home", path: "/" },
+      { title: "Courses", path: "/courses" },
+      { title: "About", path: "/about" },
+   ];
+
+   const settings = [
+      { title: "Profile", path: profilePath[userRole], handle: null },
+      { title: "Acount", path: "/account", handle: null },
+      { title: "Logout", path: "/", handle: handleLogout },
+   ];
 
    const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
@@ -236,19 +238,15 @@ function ResponsiveAppBar() {
                {isLoggedIn && (
                   <Box sx={{ flexGrow: 0 }}>
                      <Tooltip title="Open settings">
-                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                           {/* <Avatar
-                           alt="Remy Sharp"
-                           src="/static/images/avatar/2.jpg"
-                        /> */}
-                           <AccountCircleIcon
-                              sx={{
-                                 display: { xs: "flex" },
-                                 mr: 1,
-                                 color: "white",
-                              }}
-                           />
-                        </IconButton>
+                        <Chip
+                           onClick={handleOpenUserMenu}
+                           icon={<FaceIcon color="white" />}
+                           // icon={<AccountCircleIcon color="white" />}
+                           label={"Hi, " + userName}
+                           //variant="outlined"
+                          // color="default"
+                           sx={{ color: "white", bgcolor: "rgba(0,0,0,0.3)" }}
+                        />
                      </Tooltip>
                      <Menu
                         sx={{ mt: "45px" }}
@@ -266,14 +264,14 @@ function ResponsiveAppBar() {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                      >
-                        <MenuItem
+                        {/* <MenuItem
                            sx={{ cursor: "default", pointerEvents: "none" }}
                         >
                            <Typography textAlign="center" fontWeight={500}>
                               Hi, {userName}
                            </Typography>
                         </MenuItem>
-                        <Divider />
+                        <Divider /> */}
                         {settings.map((setting) => (
                            <NavLink
                               style={{ textDecoration: "none" }}

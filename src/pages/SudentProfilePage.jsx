@@ -50,7 +50,7 @@ const initialFormValues = {
    email: "",
 };
 
-export default function ProfilePage() {
+export default function StudentProfilePage() {
    // hooks
    const [showPassword, setShowPassword] = useState(false);
    const [editProfile, setEditProfile] = useState(false);
@@ -126,14 +126,6 @@ export default function ProfilePage() {
          return { name, category };
       }
 
-      // const rows = [
-      //    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-      //    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-      //    createData("Eclair", 262, 16.0, 24, 6.0),
-      //    createData("Cupcake", 305, 3.7, 67, 4.3),
-      //    createData("Gingerbread", 356, 16.0, 49, 3.9),
-      // ];
-
       const rows = courses.map((course) =>
          createData(course.name, course.category)
       );
@@ -170,7 +162,7 @@ export default function ProfilePage() {
       );
    };
 
-   // ----------------------------------------------------------------------
+   // -----------------------------------------------------------------------------
 
    return (
       <>
@@ -197,21 +189,19 @@ export default function ProfilePage() {
 
                      <Typography component="h2" variant="h4">
                         {user.name} {user.last_name}
-                        {user?.active && (
-                           <ImportContactsIcon
-                              titleAccess={
-                                 user.active == "yes" ? "Active" : "Not active"
-                              }
-                              sx={{
-                                 ml: 3,
-                                 fontSize: 30,
-                                 color:
-                                    user.active == "yes"
-                                       ? "success.main"
-                                       : grey[500],
-                              }}
-                           />
-                        )}
+                        <ImportContactsIcon
+                           titleAccess={
+                              user.active == "yes" ? "Active" : "Not active"
+                           }
+                           sx={{
+                              ml: 3,
+                              fontSize: 30,
+                              color:
+                                 user.active == "yes"
+                                    ? "success.main"
+                                    : grey[500],
+                           }}
+                        />
                      </Typography>
 
                      <List dense={true}>
@@ -219,10 +209,7 @@ export default function ProfilePage() {
                            <ListItemIcon>
                               <EmailTwoToneIcon />
                            </ListItemIcon>
-                           <ListItemText
-                              primary={user?.email}
-                              //secondary="Secondary text"
-                           />
+                           <ListItemText primary={user?.email} />
                         </ListItem>
 
                         <ListItem>
@@ -234,45 +221,35 @@ export default function ProfilePage() {
                                  new Date(user.birthday),
                                  "dd/MM/yyyy"
                               )}
-                              //secondary="Secondary text"
                            />
                         </ListItem>
-                        {user?.address && (
-                           <ListItem>
-                              <ListItemIcon>
-                                 <FmdGoodTwoToneIcon />
-                              </ListItemIcon>
-                              <ListItemText
-                                 primary={`${user.address.street}, ${user.address.number}`}
-                                 //secondary="Secondary text"
-                              />
-                           </ListItem>
-                        )}
+
+                        <ListItem>
+                           <ListItemIcon>
+                              <FmdGoodTwoToneIcon />
+                           </ListItemIcon>
+                           <ListItemText
+                              primary={`${user.address.street}, ${user.address.number}`}
+                           />
+                        </ListItem>
                      </List>
                   </Box>
 
-                  {user?.courses && (
-                     <>
-                        <Box sx={{ mt: 5 }}>
-                           <Typography component="h3" variant="h5" gutterBottom>
-                              Courses
-                           </Typography>
-                           <StudentCourses courses={user.courses} />
-                        </Box>
+                  <Box sx={{ mt: 5 }}>
+                     <Typography component="h3" variant="h5" gutterBottom>
+                        Courses
+                     </Typography>
+                     <StudentCourses courses={user.courses} />
+                  </Box>
 
-                        <Box sx={{ mt: 5 }}>
-                           <Typography component="h3" variant="h5" gutterBottom>
-                              Courses
-                           </Typography>
-                           {user.courses.map((c) => (
-                              <Chip
-                                 key={c.name}
-                                 label={`${c.name}/${c.category}`}
-                              />
-                           ))}
-                        </Box>
-                     </>
-                  )}
+                  <Box sx={{ mt: 5 }}>
+                     <Typography component="h3" variant="h5" gutterBottom>
+                        Courses
+                     </Typography>
+                     {user.courses.map((c) => (
+                        <Chip key={c.name} label={`${c.name}/${c.category}`} />
+                     ))}
+                  </Box>
                </Container>
             </ThemeProvider>
          )}
